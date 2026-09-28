@@ -1353,6 +1353,8 @@
   /* The page was a single fixed screen; let it scroll so the intro leads and the starter pack follows */
   html{height:auto!important;overflow-y:auto!important;scroll-behavior:auto!important}body{height:auto!important;overflow:visible!important}
   .page.ibm-page{height:auto!important;overflow:visible!important;display:block!important}
+  /* Mike's chat menu hung 110px past its buttons and was clipped by the window; anchor it to the button group */
+  body:has(.ibm-page) #chatModal .menu-panel{right:0!important}
   .ibm-main,.apa-page{height:auto!important;justify-content:flex-start!important}
 </style>
 <section class="ag-intro wrap" aria-label="About TiA HRia">
