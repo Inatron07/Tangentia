@@ -1237,8 +1237,32 @@
     .formatted-response tr:last-child td { border-bottom: 0; }
     .formatted-response tr:nth-child(even) td { background: #fbfaff; }
     .message-row.bot:has(.table-wrap) .bubble { width: min(100%, 900px); max-width: calc(100% - 64px); }
-  </style>
-</head>
+  </style><style id="hr-strip-style">
+  /* Sizes mirror Mike's .ibm-page .ask-bar so both strips match exactly */
+  .launcher.hr-strip{width:min(1000px,calc(100vw - 32px));bottom:18px;border-radius:22px;padding:18px 22px 20px;box-sizing:border-box}
+  .hr-strip .launcher-bar{display:block;padding:0}
+  .hr-row{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:center;margin:0 0 14px}
+  .hr-logo{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,#c2338f,#6a1f9a 55%,#2a0f5e);border:1px solid rgba(255,255,255,.26);box-shadow:0 0 0 1px rgba(255,255,255,.08) inset,0 2px 10px rgba(0,0,0,.18)}
+  .hr-logo b{font:800 19px/1 'Poppins',system-ui,sans-serif;color:#fff;letter-spacing:-.5px;margin-top:6px}
+  .hr-logo b i{font-style:normal;position:relative;display:inline-block;width:.215em;height:.545em;margin:0 .05em 0 .04em;vertical-align:baseline}
+  .hr-strip .launcher-copy strong{display:block;font-size:18px;line-height:24px;font-weight:800;letter-spacing:-.01em;margin:0 0 4px}
+  .hr-strip .launcher-copy span{display:block;font-size:13px;line-height:17px}
+  .hr-input{height:52px;background:#fff;border-radius:14px;display:grid;grid-template-columns:1fr auto;align-items:center;padding:0 6px 0 20px;color:#8b8b8b;font-size:15px;box-sizing:border-box}
+  .hr-input > span:first-child{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hr-go{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#f28a2a,#e0457b);color:#fff;font-weight:800;font-size:14px}
+  .hr-strip .launcher-bar:hover .hr-go{filter:brightness(1.08)}
+  @media (max-height:820px) and (min-width:1025px){
+    .launcher.hr-strip{padding:12px 18px 14px;bottom:12px}
+    .hr-row{margin-bottom:10px;grid-template-columns:44px 1fr}
+    .hr-logo{width:42px;height:42px}
+    .hr-logo b{font-size:16px;margin-top:5px}
+    .hr-strip .launcher-copy strong{font-size:16px;line-height:21px}
+    .hr-strip .launcher-copy span{font-size:12px;line-height:16px}
+    .hr-input{height:44px}
+    .hr-go{width:36px;height:36px}
+  }
+  @media (max-width:760px){.launcher.hr-strip{padding:12px}.hr-row{margin-bottom:10px}.hr-input{height:44px;font-size:14px}}
+</style></head>
 <body>
   <div class="app-shell">
     <header class="topbar">
@@ -1419,14 +1443,16 @@
     </div>
   </aside>
 
-  <section class="launcher" id="launcher">
-    <div class="launcher-bar" id="launcherBar" role="button" tabindex="0" aria-label="Open assistant">
-      <div class="launcher-icon">TiA</div>
-      <div class="launcher-copy">
-        <strong>Ask TiA HRía anything.</strong>
-        <span>Full-Spectrum HR — Powered by TiA.</span>
+  <section class="launcher hr-strip" id="launcher">
+    <div class="launcher-bar" id="launcherBar" role="button" tabindex="0" aria-label="Open Ask TiA HRia">
+      <div class="hr-row">
+        <div class="hr-logo" aria-hidden="true"><b>t<i><span class="ag-stem"></span><span class="ag-fly"></span></i>a</b></div>
+        <div class="launcher-copy">
+          <strong>Ask TiA HRia anything.</strong>
+          <span>Your AI HR assistant for self-service, hiring, timesheets and more.</span>
+        </div>
       </div>
-      <div class="launcher-action">↗</div>
+      <div class="hr-input"><span>What HR request or question can I help with?</span><span class="hr-go">Go</span></div>
     </div>
   </section>
 
