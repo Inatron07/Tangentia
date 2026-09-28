@@ -38,6 +38,12 @@
   main{flex:1;min-height:0;position:relative;overflow:hidden;display:flex;align-items:center}
   main::before{content:"";position:absolute;right:-120px;top:-180px;width:640px;height:640px;border-radius:50%;
     background:conic-gradient(from 200deg,#3a6bff30,#c2338f30,#e6783740,#3a6bff30);filter:blur(70px);pointer-events:none}
+  /* Background video with a light veil so text and cards stay readable */
+  .bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
+  .bg-veil{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:linear-gradient(90deg,rgba(245,245,252,.88) 0%,rgba(245,245,252,.7) 40%,rgba(245,245,252,.3) 100%)}
+  main::before{z-index:0}
+  @media (max-width:980px){ .bg-veil{background:rgba(245,245,252,.86)} }
   .layout{position:relative;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr);gap:clamp(28px,4vw,64px);align-items:center;height:100%;padding-top:clamp(16px,3vh,36px);padding-bottom:clamp(16px,3vh,36px)}
 
   .tag{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600;color:var(--ink)}
@@ -143,6 +149,8 @@
 </header>
 
 <main>
+  <video class="bg-video" id="bgVideo" src="media/golf-bg.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+  <div class="bg-veil"></div>
   <div class="wrap layout">
     <div>
       <span class="tag"><span class="dot"></span>Live demos · Powered by TiA</span>
@@ -243,6 +251,8 @@
   function show(m){toast.textContent=m;toast.classList.add('show');clearTimeout(t);t=setTimeout(()=>toast.classList.remove('show'),2200)}
   document.querySelectorAll('[data-ready="false"]').forEach(c=>c.addEventListener('click',e=>{e.preventDefault();show(c.querySelector('h3').textContent+' will open here once its file is linked')}));
   document.querySelectorAll('[data-toast]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();show(b.dataset.toast)}));
+
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){const v=document.getElementById('bgVideo');v.removeAttribute('autoplay');v.pause()}
 
   const sp=document.getElementById('sp'),spFrame=document.getElementById('spFrame'),spTabs=[...sp.querySelectorAll('.sp-tab')];
   function pick(tab){
