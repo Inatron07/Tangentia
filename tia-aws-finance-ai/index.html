@@ -770,8 +770,12 @@ form.ask button{background:linear-gradient(135deg,#ff9900,#ec7211)}
   /* The page was a single fixed screen; let it scroll so the intro leads and the starter pack follows */
   html{height:auto!important;overflow-y:auto!important;scroll-behavior:auto!important}body{height:auto!important;overflow:visible!important}
   .page.ibm-page{height:auto!important;overflow:visible!important;display:block!important}
-  /* Mike's chat menu hung 110px past its buttons and was clipped by the window; anchor it to the button group */
-  body:has(.ibm-page) #chatModal .menu-panel{right:0!important}
+  /* Mike's chat menu styled exactly like HRia's: 250px panel, no icons, same padding, type and hover */
+  body:has(.ibm-page) #chatModal .menu-panel{right:12px!important;top:calc(100% + 10px)!important;width:250px!important;padding:12px!important;box-sizing:border-box!important;border-radius:18px!important;background:rgba(255,255,255,.98)!important;border:1px solid #ece8f5!important;box-shadow:0 20px 40px rgba(26,15,74,.16)!important;gap:0!important}
+  body:has(.ibm-page) #chatModal .menu-panel.open{display:block!important}
+  body:has(.ibm-page) #chatModal .menu-panel button{display:block!important;width:100%!important;text-align:left!important;padding:12px!important;margin:0!important;border:0!important;border-radius:12px!important;background:transparent!important;color:#1a202b!important;font-size:16px!important;font-weight:600!important;line-height:normal!important;min-height:0!important;height:auto!important}
+  body:has(.ibm-page) #chatModal .menu-panel button::before,body:has(.ibm-page) #chatModal .menu-panel button::after{content:none!important;display:none!important}
+  body:has(.ibm-page) #chatModal .menu-panel button:hover{background:#f5f0ff!important;color:#4c1d95!important}
   .ibm-main,.apa-page{height:auto!important;justify-content:flex-start!important}
 </style>
 <section class="ag-intro fx-wrap" aria-label="About Finix">
@@ -1376,7 +1380,8 @@ const STARTER_PDF_B64 = "JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC9UaXRsZSAoRmluaXggRml
   document.addEventListener("visibilitychange", () => { if (document.hidden){ cancelAnimationFrame(raf); raf = null; } else if (!reduce && !raf){ raf = requestAnimationFrame(draw); } });
   size(); reduce ? draw(0) : (raf = requestAnimationFrame(draw));
 })();
-</script><style id="fx-match-style">
+</script>
+<style id="fx-match-style">
   /* Top bar mirrors Mike's .ibm-top */
   .fx-top{position:sticky;top:0;z-index:30;height:80px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;box-sizing:border-box;background:rgba(14,15,18,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#fff}
   .fx-brand{display:flex;align-items:center;gap:22px}
@@ -1455,8 +1460,7 @@ const STARTER_PDF_B64 = "JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC9UaXRsZSAoRmluaXggRml
     dock.addEventListener('mousedown', open);
     q.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ' || e.key.length === 1) open(e); });
   });
-</script>
-<style id="fx-chat-style">
+</script><style id="fx-chat-style">
   /* ===== Finix chat window: Mike's placement and sizes, Finix colours ===== */
   .tc .chat{width:min(1210px,calc(100vw - 44px))!important;height:min(700px,calc(100vh - 44px))!important;top:max(22px,calc(50% - 350px))!important;bottom:auto!important;border-radius:24px!important;border:1px solid rgba(255,255,255,.7)!important;box-shadow:0 32px 80px rgba(0,0,0,.28)!important;background:linear-gradient(135deg,#fff 0%,#fffaf5 100%)!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;overflow:hidden}
   .tc .chat .tc-wm{display:none!important}
