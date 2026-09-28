@@ -39,9 +39,10 @@
   main::before{content:"";position:absolute;right:-120px;top:-180px;width:640px;height:640px;border-radius:50%;
     background:conic-gradient(from 200deg,#3a6bff30,#c2338f30,#e6783740,#3a6bff30);filter:blur(70px);pointer-events:none}
   /* Background video with a light veil so text and cards stay readable */
-  .bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
+  .bg-video{position:absolute;top:0;right:0;width:135%;height:100%;object-fit:cover;object-position:center top;z-index:0;pointer-events:none}
+  @media (max-width:980px){ .bg-video{width:100%;object-position:center} }
   .bg-veil{position:absolute;inset:0;z-index:0;pointer-events:none;
-    background:linear-gradient(90deg,rgba(245,245,252,.88) 0%,rgba(245,245,252,.7) 40%,rgba(245,245,252,.3) 100%)}
+    background:linear-gradient(90deg,rgba(245,245,252,.8) 0%,rgba(245,245,252,.62) 40%,rgba(245,245,252,.3) 100%)}
   main::before{z-index:0}
   @media (max-width:980px){ .bg-veil{background:rgba(245,245,252,.86)} }
   .layout{position:relative;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr);gap:clamp(28px,4vw,64px);align-items:center;height:100%;padding-top:clamp(16px,3vh,36px);padding-bottom:clamp(16px,3vh,36px)}
