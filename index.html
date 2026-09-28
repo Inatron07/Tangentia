@@ -78,6 +78,35 @@
   .toast{position:fixed;left:50%;bottom:56px;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:var(--ink);color:#fff;padding:12px 18px;border-radius:10px;font-size:14px;transition:.3s;z-index:20}
   .toast.show{opacity:1;transform:translate(-50%,0)}
 
+  /* Starter packs viewer */
+  .sp{position:fixed;inset:0;z-index:30;display:none;align-items:center;justify-content:center;padding:24px;background:#1b1a1a99;backdrop-filter:blur(4px)}
+  .sp.open{display:flex}
+  .sp-box{background:#fff;border-radius:16px;width:min(1180px,100%);height:min(860px,100%);display:grid;grid-template-columns:260px minmax(0,1fr);overflow:hidden;box-shadow:0 30px 80px -30px #000}
+  .sp-side{background:var(--soft);border-right:1px solid var(--line);padding:22px 16px;display:flex;flex-direction:column;gap:8px}
+  .sp-side h2{font-family:var(--head);font-weight:600;font-size:20px;color:var(--ink);margin:0 6px 10px}
+  .sp-tab{--c:#e67837;display:flex;flex-direction:column;align-items:flex-start;width:100%;text-align:left;font:600 14px var(--body);color:var(--ink);background:#fff;border:1px solid var(--line);border-left:4px solid var(--c);border-radius:10px;padding:13px 14px;cursor:pointer;transition:.2s}
+  .sp-tab:hover{border-color:color-mix(in srgb,var(--c) 45%,var(--line));border-left-color:var(--c)}
+  .sp-tab[aria-selected="true"]{background:color-mix(in srgb,var(--c) 10%,#fff);border-color:var(--c);color:var(--c)}
+  .sp-tab small{display:block;font-weight:500;font-size:12px;color:var(--muted);margin-top:2px}
+  .sp-main{display:flex;flex-direction:column;min-width:0;min-height:0}
+  .sp-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .sp-bar strong{font-family:var(--head);font-weight:600;font-size:17px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sp-actions{display:flex;align-items:center;gap:8px;flex:none}
+  .sp-link{font-size:13px;font-weight:600;color:var(--ink);border:1px solid #d9d8e4;border-radius:8px;padding:7px 12px}
+  .sp-link:hover{border-color:var(--ink)}
+  .sp-x{width:36px;height:36px;border-radius:8px;border:1px solid #d9d8e4;background:#fff;font-size:20px;line-height:1;cursor:pointer;color:var(--ink)}
+  .sp-x:hover{border-color:var(--ink)}
+  .sp-main iframe{flex:1;width:100%;border:0;background:#525659}
+  .sp-aa{--c:#e67837}.sp-ibm{--c:#3c34c1}.sp-aws{--c:#0e8a76}.sp-ms{--c:#1f78d1}
+  @media (max-width:760px){
+    .sp{padding:0}
+    .sp-box{border-radius:0;height:100%;grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+    .sp-side{flex-direction:row;overflow-x:auto;padding:12px;border-right:0;border-bottom:1px solid var(--line)}
+    .sp-side h2{display:none}
+    .sp-tab{width:auto;flex:none;padding:10px 12px}
+    .sp-tab small{display:none}
+  }
+
   /* Shorter screens: trim card detail so everything still fits */
   @media (max-height:700px){ .try{display:none} }
   @media (max-height:620px){ .desc{display:none} .strengths{display:none} .lead{margin-top:10px} .cta{margin-top:18px} }
@@ -120,7 +149,7 @@
       <h1>Meet the <b>TiA AI Agents</b> building the Autonomous Enterprise</h1>
       <p class="lead">Four enterprise agents on four platforms. Each one answers, reasons and takes real action, from HR transactions to contract review, finance analysis and customer quotes.</p>
       <div class="cta">
-        <a class="btn-ghost" href="#" data-toast="Starter pack link will be added">View starter packs</a>
+        <a class="btn-ghost" href="#" id="spOpen">View starter packs</a>
       </div>
       <div class="strengths">
         <span><i style="background:#e67837"></i>Automation Anywhere</span>
@@ -187,11 +216,47 @@
 </footer>
 <div class="toast" id="toast"></div>
 
+<div class="sp" id="sp" role="dialog" aria-modal="true" aria-labelledby="spTitle">
+  <div class="sp-box">
+    <div class="sp-side" role="tablist">
+      <h2>Starter packs</h2>
+      <button class="sp-tab sp-aa" role="tab" data-pdf="starter-packs/automation-anywhere.pdf" data-name="Automation Anywhere APA Starter Pack">Automation Anywhere<small>APA Starter Pack</small></button>
+      <button class="sp-tab sp-ibm" role="tab" data-pdf="starter-packs/ibm.pdf" data-name="IBM Starter Pack">IBM<small>Starter Pack</small></button>
+      <button class="sp-tab sp-aws" role="tab" data-pdf="starter-packs/aws.pdf" data-name="AWS Starter Pack">AWS<small>Starter Pack</small></button>
+      <button class="sp-tab sp-ms" role="tab" data-pdf="starter-packs/microsoft.pdf" data-name="Microsoft Power Platform Starter Pack">Microsoft<small>Power Platform Starter Pack</small></button>
+    </div>
+    <div class="sp-main">
+      <div class="sp-bar">
+        <strong id="spTitle"></strong>
+        <div class="sp-actions">
+          <a class="sp-link" id="spNew" href="#" target="_blank" rel="noopener">Open in new tab</a>
+          <button class="sp-x" id="spClose" aria-label="Close">&times;</button>
+        </div>
+      </div>
+      <iframe id="spFrame" title="Starter pack"></iframe>
+    </div>
+  </div>
+</div>
+
 <script>
   const toast=document.getElementById('toast');let t;
   function show(m){toast.textContent=m;toast.classList.add('show');clearTimeout(t);t=setTimeout(()=>toast.classList.remove('show'),2200)}
   document.querySelectorAll('[data-ready="false"]').forEach(c=>c.addEventListener('click',e=>{e.preventDefault();show(c.querySelector('h3').textContent+' will open here once its file is linked')}));
   document.querySelectorAll('[data-toast]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();show(b.dataset.toast)}));
+
+  const sp=document.getElementById('sp'),spFrame=document.getElementById('spFrame'),spTabs=[...sp.querySelectorAll('.sp-tab')];
+  function pick(tab){
+    spTabs.forEach(b=>b.setAttribute('aria-selected',b===tab));
+    spFrame.src=tab.dataset.pdf+'#view=FitH';
+    document.getElementById('spNew').href=tab.dataset.pdf;
+    document.getElementById('spTitle').textContent=tab.dataset.name;
+  }
+  spTabs.forEach(b=>b.addEventListener('click',()=>pick(b)));
+  document.getElementById('spOpen').addEventListener('click',e=>{e.preventDefault();sp.classList.add('open');if(!spFrame.getAttribute('src'))pick(spTabs[0])});
+  function closeSp(){sp.classList.remove('open')}
+  document.getElementById('spClose').addEventListener('click',closeSp);
+  sp.addEventListener('click',e=>{if(e.target===sp)closeSp()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSp()});
 </script>
 </body>
 </html>
