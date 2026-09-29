@@ -727,6 +727,8 @@ body{padding-bottom:190px}
   .ag-prompts button:hover{border-color:#2b8cff;background:rgba(255,255,255,.12)}
   @media (min-width:981px){.ag-intro{min-height:min(calc(100vh - 270px),640px);align-content:center}}
   @media (max-width:980px){.ag-intro{grid-template-columns:1fr}}
+  /* short laptop screens: tighten the right panel so every Try asking prompt clears the chat strip */
+  @media (max-height:820px) and (min-width:981px){.ag-intro{padding-top:12px}.ag-does{padding:16px 26px}.ag-does h3{font-size:18px}.ag-list{margin-top:10px;gap:7px}.ag-try{margin-top:10px;padding-top:10px}.ag-prompts{margin-top:6px}}
   /* The page was a single fixed screen; let it scroll so the intro leads and the starter pack follows */
   html{height:auto!important;overflow-y:auto!important;scroll-behavior:auto!important}body{height:auto!important;overflow:visible!important}
   .page.ibm-page{height:auto!important;overflow:visible!important;display:block!important}
